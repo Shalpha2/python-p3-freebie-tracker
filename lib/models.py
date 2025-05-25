@@ -22,6 +22,11 @@ class Company(Base):
     @classmethod
     def oldest_company(cls, session):
         return session.query(cls).order_by(cls.founding_year).first()
+    
+    @property
+    def devs(self):
+     return list({freebie.dev for freebie in self.freebies})
+
 
     def __repr__(self):
         return f'<Company {self.name}>'
@@ -34,6 +39,11 @@ class Dev(Base):
     name = Column(String())
 
     freebies = relationship('Freebie', back_populates='dev')
+
+    @property
+    def companies(self):
+     return list({freebie.company for freebie in self.freebies})
+
 
     def received_one(self, item_name):
         return any(freebie.item_name == item_name for freebie in self.freebies)
