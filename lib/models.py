@@ -15,7 +15,6 @@ class Company(Base):
     name = Column(String())
     founding_year = Column(Integer())
     freebies = relationship('Freebie', back_populates='company')
-    devs = relationship('Dev', secondary='freebies', back_populates='companies', overlaps="freebies,devs")
 
     def give_freebie(self, dev, item_name, value):
         return Freebie(item_name=item_name, value=value, dev=dev, company=self)
@@ -27,6 +26,7 @@ class Company(Base):
     def __repr__(self):
         return f'<Company {self.name}>'
 
+
 class Dev(Base):
     __tablename__ = 'devs'
 
@@ -34,7 +34,6 @@ class Dev(Base):
     name = Column(String())
 
     freebies = relationship('Freebie', back_populates='dev')
-    companies = relationship('Company', secondary='freebies', back_populates='devs', overlaps="freebies,companies")
 
     def received_one(self, item_name):
         return any(freebie.item_name == item_name for freebie in self.freebies)
@@ -46,6 +45,7 @@ class Dev(Base):
     def __repr__(self):
         return f'<Dev {self.name}>'
 
+
 class Freebie(Base):
     __tablename__ = 'freebies'
 
@@ -55,7 +55,7 @@ class Freebie(Base):
     dev_id = Column(Integer, ForeignKey('devs.id'))
     company_id = Column(Integer, ForeignKey('companies.id'))
 
-    dev = relationship('Dev', back_populates='freebies', overlaps= "companies,devs")
+    dev = relationship('Dev', back_populates='freebies')
     company = relationship('Company', back_populates='freebies')
 
     def print_details(self):

@@ -25,5 +25,6 @@ if __name__ == '__main__':
     print("Alice received a T-Shirt?", devs[0].received_one("T-Shirt"))
     
     # Enter interactive debugging shell
-    import ipdb; ipdb.set_trace()
+   
+    #import ipdb; ipdb.set_trace()
 
