@@ -6,16 +6,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Company, Dev, Freebie
 
-# Connect to the database
 engine = create_engine('sqlite:///freebies.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Drop and recreate tables
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
-# Clear existing data
 session.query(Freebie).delete()
 session.query(Dev).delete()
 session.query(Company).delete()
@@ -36,7 +33,7 @@ f2 = Freebie(item_name="Sticker", value=5, company=c2, dev=d1)
 f3 = Freebie(item_name="Coffee Mug", value=15, company=c2, dev=d2)
 f4 = Freebie(item_name="Notebook", value=10, company=c3, dev=d3)
 
-# Additional freebies for testing .give_freebie() and give_away()
+
 f5 = c1.give_freebie(d2, "Pen", 3)
 f6 = c3.give_freebie(d3, "Swag Bag", 50)
 
