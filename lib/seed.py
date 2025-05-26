@@ -37,8 +37,8 @@ f4 = Freebie(item_name="Notebook", value=10, company=c3, dev=d3)
 f5 = c1.give_freebie(d2, "Pen", 3)
 f6 = c3.give_freebie(d3, "Swag Bag", 50)
 
-# Add all instances and commit
+
 session.add_all([c1, c2, c3, d1, d2, d3, f1, f2, f3, f4, f5, f6])
 session.commit()
 
-print("✅ Database seeded successfully!")
+print("Database seeded successfully!")

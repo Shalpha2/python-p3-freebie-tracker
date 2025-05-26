@@ -21,15 +21,15 @@ if __name__ == '__main__':
     for f in freebies:
         print(f.print_details())
 
-    # Test class method
+    
     print("\nOldest Company:", Company.oldest_company(session).name)
 
-    # Test Dev.received_one
+    
     nathan = session.query(Dev).filter_by(name="Nathan").first()
     print("\nDid Nathan receive a T-Shirt?", nathan.received_one("T-Shirt"))
     print("Did Nathan receive a Mug?", nathan.received_one("Mug"))
 
-    # Test Dev.give_away
+
     caroline= session.query(Dev).filter_by(name="Caroline").first()
     pen = session.query(Freebie).filter_by(item_name="Pen").first()
 
@@ -38,10 +38,10 @@ if __name__ == '__main__':
     session.commit()
     print("After give_away - Pen now owned by:", pen.dev.name)
 
-    # Test Dev.companies
+    
     print("\nCompanies Alice received freebies from:", [c.name for c in nathan.companies])
 
-    # Test Company.devs
+    
     meta= session.query(Company).filter_by(name="Meta").first()
     print("Devs who got freebies from OpenAI:", [d.name for d in meta.devs])
 
